@@ -16,8 +16,18 @@ def onehot(i, size):
     vec[i] = 1
     return cv(vec)
 
+def standardize(x, mu, sigma):
+    return ((x-mu)/sigma)
     
 #################################################################
+def getImgData(feature_vectors):
+    # We want to flatten each image from a 28 x 28 to a 784 x 1 numpy array
+    features = []
+    for image in feature_vectors:
+        reshaped_image = np.array(image).reshape((784, 1)) / 255
+        features.append(reshaped_image)
+    features = np.array(features, dtype=np.float128)
+    return features
 
 # reads the data from the notMNIST.npz file,
 # divides the data into training and testing sets, and encodes the training vectors in onehot form
@@ -31,9 +41,13 @@ def prepData():
         test_features, test_labels = f['x_test'], f['y_test']
         
     # need to rescale, flatten, convert training labels to one-hot, and zip appropriate components together
-    # CODE GOES HERE
-    
-       
+    final_training_labels = [onehot(label, 10) for label in train_labels]
+
+    final_train_features = getImgData(train_features)
+    final_test_features = getImgData(test_features)
+
+    trainingData = zip(final_train_features, final_training_labels)
+    testingData = zip(final_test_features, test_labels)
     return (trainingData, testingData)
     
 ###################################################################

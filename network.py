@@ -1,6 +1,7 @@
 import numpy as np
 import random
 import pickle
+import time
 
 '''
 Network class for CPSC 501, Fall 2021
@@ -90,7 +91,7 @@ class Network(object):
         network will be evaluated against the test data after each
         epoch, and partial progress printed out.  This is useful for
         tracking progress, but slows things down substantially."""
-
+        start = time.time()
         training_data = list(training_data)
         n = len(training_data)
         print(f"Length of training data: {n}")
@@ -112,6 +113,8 @@ class Network(object):
                 print("Epoch {} : {} / {}".format(j,self.evaluate(test_data),n_test))
             else:
                 print("Epoch {} complete".format(j))
+        end = time.time()
+        print("Execution time: " + str(round(end-start, 1)) + " seconds")
 
     def update_mini_batch(self, mini_batch, eta):
         """Update the network's weights and biases by applying
