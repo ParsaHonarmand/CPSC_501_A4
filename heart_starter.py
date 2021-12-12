@@ -1,7 +1,7 @@
 import csv
 import numpy as np
 import network
-
+from network import saveToFile
 
 # converts a 1d python list into a (1,n) row vector
 def rv(vec):
@@ -132,8 +132,9 @@ def prepData():
 ###################################################
 trainingData, testingData = prepData()
 
-net = network.Network([9,10,2])
-net.SGD(trainingData, 10, 10, .1, test_data = testingData)
+net = network.Network([9,9,2])
+net.SGD(trainingData, 10, 10, .4, test_data = testingData)
+saveToFile(net, "part3.pkl")
 
 
        
