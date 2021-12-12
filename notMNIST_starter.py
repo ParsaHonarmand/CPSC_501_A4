@@ -1,6 +1,6 @@
 import numpy as np
 import network
-
+from network import saveToFile
 
 # converts a 1d python list into a (1,n) row vector
 def rv(vec):
@@ -55,8 +55,9 @@ def prepData():
 
 trainingData, testingData = prepData()
 
-net = network.Network([784,10])
-net.SGD(trainingData, 10, 10, 10, test_data = testingData)
+net = network.Network([784,40,10])
+net.SGD(trainingData, 12, 10, 1.0, test_data = testingData)
+saveToFile(net, "part2.pkl")
 
 
 
