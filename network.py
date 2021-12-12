@@ -114,7 +114,7 @@ class Network(object):
             else:
                 print("Epoch {} complete".format(j))
         end = time.time()
-        print("Execution time: " + str(round(end-start, 1)) + " seconds")
+        print("Execution time: " + str(round(end-start, 3)) + " seconds")
 
     def update_mini_batch(self, mini_batch, eta):
         """Update the network's weights and biases by applying
