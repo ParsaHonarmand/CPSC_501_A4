@@ -53,10 +53,8 @@ def getImgData(imagefile):
     # We want to flatten each image from a 28 x 28 to a 784 x 1 numpy array
     features = []
     for image in images:
-        reshaped_image = np.array(image).reshape((784, 1))
-        std_image = standardize(reshaped_image, 
-            reshaped_image.mean(), reshaped_image.std())
-        features.append(std_image)
+        reshaped_image = np.array(image).reshape((784, 1)) / 255
+        features.append(reshaped_image)
     features = np.array(features, dtype=np.float128)
     
     return features
@@ -85,8 +83,8 @@ def prepData():
 
 trainingData, testingData = prepData()
 
-net = network.Network([784,40,10])
-net.SGD(trainingData, 10, 10, 0.85, test_data = testingData)
+net = network.Network([784,50,40,10])
+net.SGD(trainingData, 10, 10, 1, test_data = testingData)
 saveToFile(net, "part1.pkl")
 
 
